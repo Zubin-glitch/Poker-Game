@@ -63,7 +63,7 @@ class Card:
             case "spade":
                 view_card += '\u2660'
             case _:
-                raise ValueError("Invalid Suite entered!")
+                raise ValueError("Invalid card suite!")
         return view_card
 
     def __repr__(self):
