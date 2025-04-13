@@ -17,6 +17,7 @@ def is_royal_flush(hand):
     Returns: True and hand, or False and None
     rtype: tuple(bool, list(Card))
     """
+    # print('Reached is_royal_flush()')
     hand.sort(reverse=True)
     royal_hand = is_straight_flush(hand)[0] \
                 and hand[0].rank == 'A' \
@@ -31,6 +32,7 @@ def is_straight_flush(hand):
     Returns: True and hand, or False and None
     rtype: tuple(bool, list(Card))
     """
+    # print('Reached is_straight_flush()')
     hand.sort(reverse=True)
     st_flush = is_flush(hand)[0] and is_straight(hand)[0]
 
@@ -44,6 +46,7 @@ def is_flush(hand):
     Returns: True and hand, or False and None
     rtype: Tuple(bool, Optional[List[Card]])
     """
+    # print('Reached is_flush()')
     hand.sort(reverse=True)
     suites_in_hand = set(card.suit for card in hand)
     if len(suites_in_hand) == 1:
@@ -54,11 +57,13 @@ def is_straight(hand):
     """
     Check if hand contains a straight."""
 
+    # print('Reached is_straight()')
     hand.sort(reverse=True)
     if hand[0].rank == 'A' and hand[1].rank.isdigit():
         # If ace is present and other cards are digits then treat ace as 1
         hand = hand[1:] + hand[0:1]
-    for i in range(0, len(hand), 2):
+    for i in range(0, len(hand) - 1, 1):
+        # print(f"{hand[i]} -  {hand[i+1]} = {hand[i] - hand[i + 1]}")
         if hand[i] - hand[i+1] != 1:
             return False, None
     
@@ -68,6 +73,7 @@ def is_four_of_a_kind(hand):
     """
     Checks hand for four of a kind.
     """
+    # print('Reached is_four_of_a_kind()')
     hand.sort(reverse=True)
     ranks_in_hand = set(card.rank for card in hand)
     if len(ranks_in_hand) == 1:
@@ -78,6 +84,8 @@ def is_full_house(hand):
     """
     Checks if a hand is a full house.
     """
+
+    # print('reached is_full_house()')
     hand.sort(reverse=True)
     is_tres, tres = is_three_of_a_kind(hand)
     if is_tres:
@@ -88,6 +96,8 @@ def is_full_house(hand):
     return False, None
 
 def is_three_of_a_kind(hand):
+
+    # print('Reached is_three_of_a_kind()')
     hand.sort(reverse=True)
     # Check triplets being equal
 
@@ -98,6 +108,7 @@ def is_three_of_a_kind(hand):
     return False, None
 
 def is_two_pair(hand):
+    # print('Reached is_two_pair()')
     two_pairs = []
     list_pairs = list(pairwise(hand))
     skip_next = False
@@ -113,6 +124,7 @@ def is_two_pair(hand):
     return False, None
 
 def is_pair(hand):
+    # print('Reached is_pair()')
     hand.sort(reverse = True)
     found = False
     pair_idx = -1
@@ -129,5 +141,6 @@ def is_pair(hand):
     
     return hand[pair_idx: pair_idx + 2]
 def is_high_card(hand):
+    # print('Reached is_high_card()')
     hand.sort(reverse=True)
     return True, hand[0]

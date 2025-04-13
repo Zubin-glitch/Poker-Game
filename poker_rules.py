@@ -34,9 +34,12 @@ def compute_best_hand(hands_list):
     
     # Recursive Case: Internal node worker
     # divide list into two equal halves and recursively call best_hand on each half
-    left = compute_best_hand(hands_list[0: len(hands_list // 2)])
+    # Time complexity: O(7C5) = O(21) = O(1)
+    # 
+    left = compute_best_hand(hands_list[0: len(hands_list) // 2])
     right = compute_best_hand(hands_list[len(hands_list) // 2: ])
     return compute_best_hand([left, right])
+
 
 def compare_hands(hand1, hand2):
     """
@@ -163,20 +166,20 @@ def compare_hands(hand1, hand2):
         
         else:
             for i in range(len(hand1)):
-                cmp = hand1[i].compare(hand2[i]) != 0:
+                cmp = hand1[i].compare(hand2[i])
                 if cmp != 0:
                     return cmp
             return 0
 
-def categorize_hand(hand):
+def categorize_hand(hand) -> str:
     """
     Assign a category to a poker hand.
     param: hand (list of 5 cards)
     return: category of hand['Royal Flush', 'Straight Flush', etc.]
     rtype: str
     """
-    global category_func_dict
-    for category, func in category_func_dict.items():
+    global category_funcs
+    for category, func in category_funcs.items():
         match, h = func(hand)
         if match:
             return category

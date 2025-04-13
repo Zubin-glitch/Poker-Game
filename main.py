@@ -16,7 +16,7 @@ for n in range(2, num_players + 1):
         print(f"Game {i}")
         playing_deck = Deck()
         playing_deck.shuffle()
-        assert len(playing_deck) == 52, "A Doeck should contain exactly 52 cards."
+        assert len(playing_deck) == 52, "A Deck should contain exactly 52 cards."
 
         # set players
         players = [Player(f"Player {p}") for p in range(n)]
@@ -25,7 +25,7 @@ for n in range(2, num_players + 1):
         for _ in range(2):
             # Deal each player a card for 2 rounds
             for player in players:
-                player.add_card(playing_deck.deal_card())
+                player.draw_card(playing_deck.deal_card())
 
         for p in players:
             p_hand = p.get_holecards_pokernotation()

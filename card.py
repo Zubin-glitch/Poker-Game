@@ -35,7 +35,7 @@ class Card:
         return Card.static_ranks.index(self.rank) < Card.static_ranks.index(other.rank)
     
     def __le__(self, other) -> bool:
-        return Card.static_ranks.index(self.rank) <= Card.static_ranks_index(other.rank)
+        return Card.static_ranks.index(self.rank) <= Card.static_ranks.index(other.rank)
     
     def __gt__(self, other) -> bool:
         return Card.static_ranks.index(self.rank) > Card.static_ranks.index(other.rank)

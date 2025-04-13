@@ -12,6 +12,7 @@ and ranked, more on this later.
 from deck import Deck
 from card import Card
 from poker_rules import compute_best_hand, categorize_hand
+from itertools import combinations
 
 class Player:
     def __init__(self, name):
@@ -31,7 +32,7 @@ class Player:
         return str(self)
     
 
-    def add_card(self, card: Card) -> None:
+    def draw_card(self, card: Card) -> None:
         if len(self._holeCards) < 2:
             self._holeCards.append(card)
         else:
@@ -47,7 +48,10 @@ class Player:
             raise ValueError("Not enough cards on the table!")
         if len(table) >= 3:
             # TODO: Either use itertools.combinations or write own combination listing function
-            list_hands = [list(combo) for combo in list_hand_combinations(self._holeCards, table)]
+            list_cards = []
+            list_cards.extend(table)
+            list_cards.extend(self._holeCards)
+            list_hands = [list(combo) for combo in combinations(list_cards, 5)]
             self._bestHand = compute_best_hand(list_hands)
             self._bestHand.sort(reverse=True)
             return self._bestHand
